@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Confirm Order - Rishabh's Restaurant{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto bg-white p-6 rounded shadow">
+  <h1 class="text-2xl font-bold text-center text-red-500 mb-6">📦 Confirm Your Order</h1>
+
+  <!-- Order Summary -->
+  <div class="mb-6">
+    <h2 class="text-xl font-semibold text-gray-800 mb-2">🛒 Cart Items</h2>
+    <ul class="divide-y">
+      {% for item in cart_items %}
+        <li class="flex justify-between py-2">
+          <div>
+            <p class="font-semibold">{{ item.name }}</p>
+            <p class="text-sm text-gray-500">Qty: {{ item.quantity }}</p>
+          </div>
+          <p class="text-gray-800">₹{{ item.total }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+    <p class="text-right mt-4 text-lg font-bold text-green-700">Total: ₹{{ total_price }}</p>
+  </div>
+
+  <!-- Customer Info Form -->
+  <form method="post"  class="space-y-4">
+    {% csrf_token %}
+    <div>
+      <label class="block text-sm font-medium">👤 Name</label>
+      <input type="text" name="name" required class="w-full p-2 border rounded mt-1">
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium">📞 Phone</label>
+      <input type="text" name="phone" required class="w-full p-2 border rounded mt-1">
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium">🏠 Address</label>
+      <textarea name="address" rows="3" required class="w-full p-2 border rounded mt-1"></textarea>
+    </div>
+
+    <div class="text-right">
+      <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700">
+        ✅ Place Order
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %}

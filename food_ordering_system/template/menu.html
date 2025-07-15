@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Menu - My Restaurant{% endblock %}
+
+{% block content %}
+  <div class="mb-6 flex justify-between items-center">
+    <h1 class="text-2xl font-bold">Restaurant Menu</h1>
+    <select id="categoryFilter" onchange="filterCards()" class="p-2 border rounded">
+      <option value="all">All Categories</option>
+      <option value="starter">Starter</option>
+      <option value="main">Main</option>
+      <option value="desert">Desert</option>
+    </select>
+  </div>
+
+  <!-- Card Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" id="cardContainer">
+
+    <!-- Card Template -->
+
+
+    {% for items in menudetails%}
+
+     <div class="card bg-white rounded-lg shadow p-4" data-category="{{items.category|lower}}">
+      <img src="{{items.image.url}}" alt="{{ items.name }}" class="rounded w-full h-40 object-cover mb-4" />
+      <h2 class="text-xl font-semibold">{{items.name}}</h2>
+      <p class="text-gray-600">{{items.description}}</p>
+      <p class="text-green-600 font-bold mt-2">{{items.price}}</p>
+      <form class="mt-4" method="post" action="{% url 'add_to_cart' items.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="quantity" value="1" />
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+          Add to Cart
+        </button>
+      </form>
+    </div>
+
+    {% endfor %}
+  </div>
+
+  <!-- Filter Script -->
+ <script>
+  function filterCards() {
+    const selectedCategory = document.getElementById("categoryFilter").value.toLowerCase().trim();
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+      const category = card.getAttribute("data-category").toLowerCase().trim();
+      if (selectedCategory === "all" || category === selectedCategory) {
+        card.style.display = "block";
+      } else {
+        card.style.display = "none";
+      }
+    });
+  }
+</script>
+
+
+{% endblock %}

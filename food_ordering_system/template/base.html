@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Restaurant{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold text-red-500">🍴 Rishabh's Restaurant</a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="/" class="hover:text-red-500 font-semibold">Menu</a>
+                <a href="/cart/" class="hover:text-red-500 font-semibold">Cart</a>
+            </nav>
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-2xl">☰</button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 space-y-2">
+            <a href="/" class="block text-lg hover:text-red-500">Menu</a>
+            <a href="/cart/" class="block text-lg hover:text-red-500">Cart</a>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <main class="flex-1 container mx-auto px-4 py-6">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-4 mt-6">
+        <div class="container mx-auto px-4 text-center">
+            <p>© 2025 Rishabh's Restaurant | All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JS for mobile menu toggle -->
+    <script>
+        const toggle = document.getElementById('menu-toggle');
+        const menu = document.getElementById('mobile-menu');
+        toggle.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

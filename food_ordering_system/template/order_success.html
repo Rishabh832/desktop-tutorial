@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Order Confirmed{% endblock %}
+
+{% block content %}
+<div class="text-center py-12">
+    <h1 class="text-3xl font-bold text-green-600">🎉 Order Placed Successfully!</h1>
+    <p class="mt-4 text-lg">Thank you for ordering from <strong>Rishabh's Restaurant</strong> 🍽️</p>
+
+    <div class="mt-6">
+        <a href="{% url 'menupage' %}" class="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700">
+            Back to Menu
+        </a>
+    </div>
+</div>
+{% endblock %}
